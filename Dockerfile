@@ -1,5 +1,8 @@
 FROM ubuntu:xenial
+MAINTAINER Mitchell Hewes <me@mitcdh.com>
+
 ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update -qq
  && apt-get install -y nfs-kernel-server runit inotify-tools -qq
  && apt-get remove -y fgetty -qq
