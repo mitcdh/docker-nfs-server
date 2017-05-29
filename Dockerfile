@@ -1,12 +1,17 @@
 FROM ubuntu:xenial
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update -qq && apt-get install -y nfs-kernel-server runit inotify-tools -qq && apt-get remove -y fgetty -qq
-RUN mkdir -p /exports
+RUN apt-get update -qq
+ && apt-get install -y nfs-kernel-server runit inotify-tools -qq
+ && apt-get remove -y fgetty -qq
+ && apt-get clean all \
+ && rm /var/log/apt/* /var/log/alternatives.log /var/log/bootstrap.log /var/log/dpkg.log
 
-RUN mkdir -p /etc/sv/nfs
+RUN mkdir -p /exports
+ && mkdir -p /docker-entrypoint
+ && mkdir -p /etc/sv/nfs
+
 ADD nfs.init /etc/sv/nfs/run
 ADD nfs.stop /etc/sv/nfs/finish
-
 ADD nfs_setup.sh /usr/local/bin/nfs_setup
 
 VOLUME /exports

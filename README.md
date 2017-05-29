@@ -1,17 +1,21 @@
-Docker NFS Server
-================
+## Docker NFS Server
 
-Usage
-----
+### Environment Variables
+
+* `MOUNT_OPTS`: mount options to apply to all mounts
+* `NFS_CLIENTS`: nfs client specification for all mounts
+
+### Usage
 ```bash
-docker run -d --name nfs --privileged cpuguy83/nfs-server /path/to/share /path/to/share2 /path/to/shareN
+docker run -d \
+--name nfs \
+--cap-add SYS_ADMIN \
+-e MOUNT_OPTS='rw,async'
+-e NFS_CLIENTS='192.168.1.0/24'
+-v /local-path:/share1
+mitcdh/nfs-server \
+/share1
 ```
 
-```bash
-docker run -d --name nfs-client --privileged --link nfs:nfs cpuguy83/nfs-client /path/on/nfs/server:/path/on/client
-``` 
-
-More Info
-=========
-
-See http://www.tech-d.net/2014/03/29/docker-quicktip-4-remote-volumes/
+### Credits
+* [cpuguy83/docker-nfs-server](https://github.com/cpuguy83/docker-nfs-server)
