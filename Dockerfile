@@ -4,7 +4,7 @@ MAINTAINER Mitchell Hewes <me@mitcdh.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -qq \
- && apt-get install -y nfs-kernel-server runit inotify-tools -qq \
+ && apt-get install -y nfs-kernel-server runit inotify-tools netbase -qq \
  && apt-get remove -y fgetty -qq \
  && apt-get clean all \
  && rm /var/log/apt/* /var/log/alternatives.log /var/log/bootstrap.log /var/log/dpkg.log
